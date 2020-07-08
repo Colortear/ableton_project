@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+
+# Third Party Headers
+/include/test/gmock
+/include/test/gtest
