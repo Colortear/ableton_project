@@ -1,6 +1,5 @@
 #!/bin/bash
 
-cd ..
 if [ ! -d "./lib" ]
 then
     git clone https://github.com/google/googletest.git
@@ -13,7 +12,6 @@ then
     cd googletest
     make
     cd ..
-    mkdir lib
     cp -r googletest/build/lib/ .
     mkdir include/tests/
     cp -r googletest/googletest/include/gtest include/tests/
