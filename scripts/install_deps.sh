@@ -10,9 +10,8 @@ then
     mkdir googletest/build &&
         cd googletest/build &&
         cmake .. &&
-        cd .. &&
         make &&
-        cd .. &&
+        cd ../.. &&
         cp -r googletest/build/lib/ . &&
         mkdir include/test/ &&
         cp -r googletest/googletest/include/gtest include/test/ &&
