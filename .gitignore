@@ -32,5 +32,4 @@
 *.app
 
 # Third Party Headers
-/include/test/gmock
-/include/test/gtest
+/include/test/
