@@ -37,7 +37,7 @@ CLASS_DIR = $(SRC_DIR)Classes/
 
 _CLASSES = 
 _SRC = main.cpp
-_TESTS = quick_test.cpp
+_TESTS = dummy.cpp
 
 SRC = $(addprefix $(SRC_DIR), $(_SRC))
 CLASSES = $(addprefix $(CLASS_DIR), $(_CLASSES))
@@ -69,7 +69,6 @@ test: $(TEST_NAME)
 install_deps: install_deps_script
 
 install_deps_script:
-	chmod +x scripts/install_deps.sh
 	./scripts/install_deps.sh
 
 clean:
