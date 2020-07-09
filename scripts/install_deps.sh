@@ -8,13 +8,14 @@ then
         exit
     fi
     mkdir googletest/build &&
-    cmake googletest &&
-    cd googletest &&
-    make &&
-    cd .. &&
-    cp -r googletest/build/lib/ . &&
-    mkdir include/tests/ &&
-    cp -r googletest/googletest/include/gtest include/tests/ &&
-    cp -r googletest/googlemock/include/gmock include/tests/ &&
-    rm -rf googletest
+        cd googletest/build &&
+        cmake .. &&
+        cd .. &&
+        make &&
+        cd .. &&
+        cp -r googletest/build/lib/ . &&
+        mkdir include/test/ &&
+        cp -r googletest/googletest/include/gtest include/test/ &&
+        cp -r googletest/googlemock/include/gmock include/test/ &&
+        rm -rf googletest
 fi
