@@ -1,8 +1,8 @@
 _dummy := $(shell mkdir -p obj/testobj)
 
-NAME = warped_record
+NAME = warpedrecord
 
-TEST_NAME = warped_record_tests
+TEST_NAME = warpedrecord_tests
 
 CC = gcc
 
