@@ -3,41 +3,28 @@
 
 # include <vector>
 # include <memory>
-# include <map>
+# include <unordered_map>
+# include <string>
+# include "Timeline.h"
+# include "utility.h"
 
 using commandList = std::vector<std::string>;
 namespace command {
 
-void    registerCommands();
-
-class CommandProcessor {
-public:
-    CommandProcessor() = default;
-    CommandProcessor(const CommandProcessor&) = delete;
-    CommandProcessor operator=(const CommandProcessor&) = delete;
-    ~CommandProcessor() = default;
-
-    template <typename CommandType, typename T>
-    void    registerCommand(std::string name, T& arg);
-    int     executeCommand(commandList& c);
-private:
-    std::map<std::unique_ptr<Command>>  _commands;
-};
-
 class Command {
 public:
-    Command(const Command&) = delete;
-    Command& operator=(const Command&) = delete;
-    ~Command() = default;
+    virtual ~Command() = default;
 
-    virtual int invoke() = 0;
+    virtual int     invoke() = 0;
+    virtual void    assignInput(const commandList& args) = 0;
 };
 
 class InsertWarpMarker : public Command {
 public:
     InsertWarpMarker(Timeline& timeline);
 
-    int invoke();
+    int     invoke();
+    void    assignInput(const commandList& args);
 private:
     Timeline&   _timeline;
     float       _beat;
@@ -47,7 +34,9 @@ private:
 class DefineEndTempo : public Command {
 public:
     DefineEndTempo(Timeline& timeline);
-    int invoke();
+
+    int     invoke();
+    void    assignInput(const commandList& args);
 private:
     Timeline&   _timeline;
     float       _tempo;
@@ -56,7 +45,9 @@ private:
 class ConvertTimeToBeat : public Command {
 public:
     ConvertTimeToBeat(Timeline& timeline);
-    int invoke();
+
+    int     invoke();
+    void    assignInput(const commandList& args);
 private:
     Timeline&   _timeline;
     float       _time;
@@ -64,12 +55,32 @@ private:
 
 class ConvertBeatToTime : public Command {
 public:
-    ConvertBeatToTime(Timeline& timeline, commandList& commands);
-    int invoke();
+    ConvertBeatToTime(Timeline& timeline);
+
+    int     invoke();
+    void    assignInput(const commandList& args);
 private:
     Timeline&   _timeline;
     float       _beat;
 };
+
+class CommandProcessor {
+public:
+    CommandProcessor() = default;
+    CommandProcessor(const CommandProcessor&) = delete;
+    CommandProcessor operator=(const CommandProcessor&) = delete;
+    ~CommandProcessor() = default;
+
+    template <typename C, typename ...Refs>
+    void    registerCommand(std::string name, Refs&... refs);
+    int     executeCommand(const utility::CommandData& cd);
+private:
+    std::unordered_map<std::string, std::unique_ptr<Command>>  _commands;
+};
+
+void    registerCommands(CommandProcessor& cp, Timeline& timeline);
+
+#include "registerCommand.tpp"
 
 }
 

@@ -5,7 +5,18 @@
 # include <string>
 
 namespace utility {
-    std::vector<std::string>    splitStr(std::string line);
+
+using strings = std::vector<std::string>;
+
+strings splitStr(std::string line);
+
+class CommandData {
+public:
+    std::string                 command;
+    std::vector<std::string>    args;
+    void    fillData(std::vector<std::string> line);
+};
+
 };
 
 #endif

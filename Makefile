@@ -35,8 +35,8 @@ TEST_DIR = $(SRC_DIR)tests/
 
 CLASS_DIR = $(SRC_DIR)Classes/
 
-_CLASSES = 
-_SRC = main.cpp
+_CLASSES = WarpMarker.cpp CommandProcessor.cpp Command.cpp Timeline.cpp
+_SRC = main.cpp registerCommands.cpp utility.cpp
 _TESTS = dummy.cpp
 
 SRC = $(addprefix $(SRC_DIR), $(_SRC))
@@ -48,10 +48,10 @@ OBJ = $(patsubst %, $(ODIR)/%, $(_SRC:.cpp=.o)) $(patsubst %, $(ODIR)/%, $(_CLAS
 TEST_OBJ = $(filter-out obj/main.o, $(OBJ)) $(patsubst %, $(TEST_ODIR)/%, $(_TESTS:.cpp=.o))
 
 $(ODIR)/%.o: $(SRC_DIR)%.cpp
-	$(CC) -c -o $@ $< $(INC_FLAGS) $(CXXFLAGS)
+	$(CC) -c $< $(INC_FLAGS) -o $@ $(CXXFLAGS)
 
 $(ODIR)/%.o: $(CLASS_DIR)%.cpp
-	$(CC) -c -o $@ $< $(INC_DIR) $(CXXFLAGS)
+	$(CC) -c $< $(INC_FLAGS) -o $@ $(CXXFLAGS)
 
 $(TEST_ODIR)/%.o: $(TEST_DIR)%.cpp
 	$(CC) -c -o $@ $(TEST_INC_FLAGS) $< $(CXXFLAGS)

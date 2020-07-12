@@ -1,7 +1,6 @@
 #ifndef WARPEDRECORD_H
 # define WARPEDRECORD_H
 
-# include <iostream>
-# include "utility.h"
+# include "Command.h"
 
 #endif

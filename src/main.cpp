@@ -1,14 +1,21 @@
 #include <iostream>
-#include "../include/Timeline.h"
-#include "../include/actions.h"
-#include "../include/WarpMarker.h"
-#include "../include/Command.h"
+#include "../include/warpedrecord.h"
+
+using namespace utility;
 
 int main(void)
 {
-    std::string         line;
-    Timeline            timeline;
+    std::vector<std::string>    tokline;
+    std::string                 line;
+    Timeline                    timeline;
+    CommandData                 cd;
+    command::CommandProcessor   cp;
 
-    while (getline(std::cin, line))
+    command::registerCommands(cp, timeline);
+    while (getline(std::cin, line)) {
+        auto tokline = splitStr(line);
+        cd.fillData(tokline);
+        cp.executeCommand(cd);
+    }
     return 0;
 }

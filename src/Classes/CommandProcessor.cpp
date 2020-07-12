@@ -1,14 +1,22 @@
 #include "../../include/Command.h"
-#include <string>
 
-using namespace command;
+#include <iostream>
 
-template <typename CommandType, typename T>
-void CommandProcessor::registerCommand(std::string name, T& arg)
+using namespace utility;
+
+namespace command {
+
+int CommandProcessor::executeCommand(const CommandData& cd)
 {
-    this->_commands.emplace(name, std::make_unique<CommandType>(arg));
+    Command *command;
+
+    if (auto it = _commands.find(cd.command);
+            it != _commands.end() && cd.args.size() > 1) {
+        command = it->second.get();
+        command->assignInput(cd.args);
+        return command->invoke();
+    }
+    return 1;
 }
 
-int CommandProcessor::executeCommand(commandList& std::vector<string>)
-{
 }

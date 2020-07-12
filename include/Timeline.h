@@ -1,4 +1,4 @@
-#ifndef TIMLINE_H
+#ifndef TIMELINE_H
 # define TIMELINE_H
 
 # include <map>
@@ -21,6 +21,8 @@ private:
     bool    isIntersecting(WarpMarker& wm);
     // use remove if with erase and inline the predicate
 public:
+    Timeline() = default;
+
     float   getTimeFromBeat(float beatVal);
     float   getBeatFromTime(float timeVal);
     int     insertWarpMarker(float beat, float timestamp);
