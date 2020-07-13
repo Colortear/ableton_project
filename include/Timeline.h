@@ -65,21 +65,19 @@
  */
 
 class Timeline {
-private:
-    LocusMap    warpMarkerMap;
-    float       _endTempo;
-
-    slice   getSliceFromBeat(float beatVal);
-    slice   getSliceFromTime(float timeVal);
-    bool    isIntersecting(WarpMarker& wm);
-    // use remove if with erase and inline the predicate
 public:
-    Timeline() = default;
+    Timeline(std::unique_ptr<LocusMap> lm);
 
     int     insertWarpMarker(float beat, float timestamp); // marker <beat time> <sample time>
     int     setEndTempo(float tempo); // end_tempo <value>
     float   getBeatFromTime(float timeVal); // s2b <sample time>
     float   getTimeFromBeat(float beatVal); // b2s <beat time>
+private:
+    std::unique_ptr<LocusMap>   warpMarkerMap;
+    float                       _endTempo;
+
+    bool    isIntersecting(WarpMarker& wm);
+    // use remove if with erase and inline the predicate
 };
 
 #endif

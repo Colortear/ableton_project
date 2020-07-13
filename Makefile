@@ -35,7 +35,7 @@ TEST_DIR = $(SRC_DIR)tests/
 
 CLASS_DIR = $(SRC_DIR)Classes/
 
-_CLASSES = WarpMarker.cpp CommandProcessor.cpp Command.cpp Timeline.cpp
+_CLASSES = WarpMarker.cpp CommandProcessor.cpp Command.cpp Timeline.cpp MarkerMap.cpp
 _SRC = main.cpp registerCommands.cpp utility.cpp
 _TESTS = dummy.cpp
 

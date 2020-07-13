@@ -15,21 +15,22 @@ pole    make_pole(float f1, float f2);
 
 class LocusMap {
 public:
-    virtual LocusMap(const LocusMap&) = delete;
-    virtual LocusMap    operator=(const LocusMap&) = delete;
-    virtual LocusMap(const LocusMap&&) = default;
-    virtual LocusMap    operator=(const LocusMap&&) = default;
-    virtual ~LocusMap() = default;
+    LocusMap() = default;
+    LocusMap(const LocusMap&) = delete;
+    LocusMap&   operator=(const LocusMap&) = delete;
+    LocusMap(LocusMap&& lm) = default;
+    LocusMap&   operator=(LocusMap&& lm) = default;
+    ~LocusMap() = default;
 
     virtual float   upperBoundAboveMap(float) = 0;
     virtual float   lowerBoundAboveMap(float) = 0;
     virtual float   upperBoundBelowMap(float) = 0;
     virtual float   lowerBoundBelowMap(float) = 0;
-    virtual int     insertRelationship(pole) = 0;
-    virtual int     removeIntersecting(pole) = 0;
+    virtual int     insertRelationship(const pole&) = 0;
+    virtual int     removeIntersecting(const pole&) = 0;
 protected:
-    virtual std::pair<float, float> getRangeIntersecting(pole) = 0;
-    virtual bool    isIntersecting(pole, pole) = 0;
+    virtual std::pair<float, float> getRangeIntersecting(const pole&) = 0;
+    virtual bool    isIntersecting(const pole&, const pole&) = 0;
 };
 
 };

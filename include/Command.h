@@ -19,46 +19,46 @@ public:
     virtual void    assignInput(const commandList& args) = 0;
 };
 
-class InsertWarpMarker : public Command {
+class InsertWarpMarker final : public Command {
 public:
     InsertWarpMarker(Timeline& timeline);
 
-    int     invoke();
-    void    assignInput(const commandList& args);
+    int     invoke() override;
+    void    assignInput(const commandList& args) override;
 private:
     Timeline&   _timeline;
     float       _beat;
     float       _timestamp;
 };
 
-class DefineEndTempo : public Command {
+class DefineEndTempo final : public Command {
 public:
     DefineEndTempo(Timeline& timeline);
 
-    int     invoke();
-    void    assignInput(const commandList& args);
+    int     invoke() override;
+    void    assignInput(const commandList& args) override;
 private:
     Timeline&   _timeline;
     float       _tempo;
 };
 
-class ConvertTimeToBeat : public Command {
+class ConvertTimeToBeat final : public Command {
 public:
     ConvertTimeToBeat(Timeline& timeline);
 
-    int     invoke();
-    void    assignInput(const commandList& args);
+    int     invoke() override;
+    void    assignInput(const commandList& args) override;
 private:
     Timeline&   _timeline;
     float       _time;
 };
 
-class ConvertBeatToTime : public Command {
+class ConvertBeatToTime final : public Command {
 public:
     ConvertBeatToTime(Timeline& timeline);
 
-    int     invoke();
-    void    assignInput(const commandList& args);
+    int     invoke() override;
+    void    assignInput(const commandList& args) override;
 private:
     Timeline&   _timeline;
     float       _beat;

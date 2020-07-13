@@ -2,19 +2,18 @@
 #include "../include/warpedrecord.h"
 
 using namespace utility;
+using namespace command;
 
 int main(void)
 {
-    std::vector<std::string>    tokline;
-    std::string                 line;
-    Timeline                    timeline;
-    CommandData                 cd;
-    command::CommandProcessor   cp;
+    std::string         line;
+    Timeline            timeline { std::make_unique<MarkerMap>() };
+    CommandData         cd;
+    CommandProcessor    cp;
 
-    command::registerCommands(cp, timeline);
-    while (getline(std::cin, line)) {
-        auto tokline = splitStr(line);
-        cd.fillData(tokline);
+    registerCommands(cp, timeline);
+    while (getline(std::cin, line)) { 
+        cd.fillData(splitStr(line));
         cp.executeCommand(cd);
     }
     return 0;

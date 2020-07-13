@@ -2,6 +2,10 @@
 
 // public members
 
+Timeline::Timeline(std::unique_ptr<LocusMap> lm) :
+    warpMarkerMap(std::move(lm))
+{}
+
 float   Timeline::getTimeFromBeat(float beatVal)
 {
     return beatVal;
