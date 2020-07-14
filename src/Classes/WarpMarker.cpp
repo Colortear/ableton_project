@@ -1,6 +1,6 @@
 #include "../../include/WarpMarker.h"
 
-WarpMarker::WarpMarker(float beat, float timestamp) :
+WarpMarker::WarpMarker(double beat, double timestamp) :
     _beat(beat),
     _timestamp(timestamp)
 {}
@@ -11,11 +11,7 @@ WarpMarker::WarpMarker(WarpMarker&& wm) :
 {}
 
 inline
-float   WarpMarker::getTempo() const
-{
-    return this->beat() / this->time();
-}
+double  WarpMarker::beat() const { return _beat; }
 
-float   WarpMarker::beat() const { return _beat; }
-
-float   WarpMarker::time() const { return _timestamp; }
+inline
+double  WarpMarker::time() const { return _timestamp; }

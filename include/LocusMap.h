@@ -3,15 +3,16 @@
 
 # include <array>
 # include <map>
+# include <optional>
 
 namespace locusmap {
 
 struct pole {
-    float above;
-    float below;
+    double above;
+    double below;
 };
 
-pole    make_pole(float f1, float f2);
+using option_pole = std::optional<pole>;
 
 class LocusMap {
 public:
@@ -22,15 +23,15 @@ public:
     LocusMap&   operator=(LocusMap&& lm) = default;
     ~LocusMap() = default;
 
-    virtual float   upperBoundAboveMap(float) = 0;
-    virtual float   lowerBoundAboveMap(float) = 0;
-    virtual float   upperBoundBelowMap(float) = 0;
-    virtual float   lowerBoundBelowMap(float) = 0;
-    virtual int     insertRelationship(const pole&) = 0;
-    virtual int     removeIntersecting(const pole&) = 0;
+    virtual option_pole upperBoundAboveMap(double) const = 0;
+    virtual option_pole lowerBoundAboveMap(double) const = 0;
+    virtual option_pole upperBoundBelowMap(double) const = 0;
+    virtual option_pole lowerBoundBelowMap(double) const = 0;
+    virtual void    insertRelationship(const double, const double) = 0;
+    virtual size_t  size() const = 0;
 protected:
-    virtual std::pair<float, float> getRangeIntersecting(const pole&) = 0;
-    virtual bool    isIntersecting(const pole&, const pole&) = 0;
+    virtual void    removeIntersecting(const pole&) = 0;
+    virtual bool    isIntersecting(const pole&, const pole&) const = 0;
 };
 
 };

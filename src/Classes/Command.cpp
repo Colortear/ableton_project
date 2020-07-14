@@ -11,7 +11,8 @@ InsertWarpMarker::InsertWarpMarker(Timeline& timeline) :
 
 int InsertWarpMarker::invoke()
 {
-    return _timeline.insertWarpMarker(_beat, _timestamp);
+    _timeline.insertWarpMarker(_beat, _timestamp);
+    return 0;
 }
 
 void    InsertWarpMarker::assignInput(const commandList& args)
@@ -27,7 +28,8 @@ DefineEndTempo::DefineEndTempo(Timeline& timeline) :
 
 int DefineEndTempo::invoke()
 {
-    return _timeline.setEndTempo(_tempo);
+    _timeline.setEndTempo(_tempo);
+    return 0;
 }
 
 void    DefineEndTempo::assignInput(const commandList& args)

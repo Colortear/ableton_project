@@ -8,11 +8,9 @@ namespace command {
 
 int CommandProcessor::executeCommand(const CommandData& cd)
 {
-    Command *command;
-
     if (auto it = _commands.find(cd.command);
             it != _commands.end() && cd.args.size()) {
-        command = it->second.get();
+        auto& command = it->second;
         command->assignInput(cd.args);
         return command->invoke();
     }

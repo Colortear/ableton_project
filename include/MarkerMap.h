@@ -5,26 +5,32 @@
 # include "WarpMarker.h"
 # include <memory>
 
-using namespace locusmap;
-
-class MarkerMap final : public LocusMap {
+class MarkerMap final : public locusmap::LocusMap {
 public:
+    using marker_map = std::map<double, std::shared_ptr<WarpMarker>>;
+    using map_iter = marker_map::iterator;
+
     MarkerMap() = default;
-    MarkerMap(MarkerMap&& mm);
-    MarkerMap&  operator=(MarkerMap&& mm);
+    MarkerMap(MarkerMap&& mm) = default;
+    MarkerMap&  operator=(MarkerMap&& mm) = default;
     ~MarkerMap() = default;
 
-    float   upperBoundAboveMap(float point) override;
-    float   lowerBoundAboveMap(float point) override;
-    float   upperBoundBelowMap(float point) override;
-    float   lowerBoundBelowMap(float point) override;
-    int     insertRelationship(const pole& pole) override;
-    int     removeIntersecting(const pole& pole) override;
+    locusmap::option_pole   upperBoundAboveMap(const double point) const override;
+    locusmap::option_pole   lowerBoundAboveMap(const double point) const override;
+    locusmap::option_pole   upperBoundBelowMap(const double point) const override;
+    locusmap::option_pole   lowerBoundBelowMap(const double point) const override;
+    void    insertRelationship(const double beat, const double time) override;
+    size_t  size() const override;
 private:
-    std::pair<float, float> getRangeIntersecting(const pole& marker) override;
-    bool    isIntersecting(const pole& dependent, const pole& independent) override;
+    void    removeIntersecting(const locusmap::pole& marker) override;
+    void    removeFromBeat(const locusmap::pole& marker);
+    void    removeFromTime(const locusmap::pole& marker);
+    void    eraseMarkerByTime(map_iter mi, double timeKey);
+    void    eraseMarkerByBeat(map_iter mi, double beatKey);
+    bool    isIntersecting(const locusmap::pole& m1, const locusmap::pole& m2) const override;
 
-    std::map<float, WarpMarker> _map;
+    marker_map  _beatMap;
+    marker_map  _timeMap;
 };
 
 #endif
