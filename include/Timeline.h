@@ -83,9 +83,10 @@ public:
     double  getBeatFromTime(const double timeVal) const;
     double  getTimeFromBeat(const double beatVal) const;
 private:
-    double  calculateRelationship(const double inc, const range& p1, const range& p2) const;
-    double  deduceTimeByTempo(const double inc, const locusmap::pole&);
-    double  deduceBeatByTempo(const double inc, const locusmap::pole&);
+    double  calculateRelationship(const double inc, const range& r1, const range& r2) const;
+    double  calculateTimeByTempo(const double inc, const locusmap::pole& lower) const;
+    double  calculateBeatByTempo(const double inc, const locusmap::pole& lower) const;
+
     timelineMap _warpMarkerMap;
     double      _endTempo;
 };

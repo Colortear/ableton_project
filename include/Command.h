@@ -8,6 +8,9 @@
 # include "Timeline.h"
 # include "utility.h"
 
+// There would normally be an implementation of input error handling here
+// but the prompt explicitly stated the input would always be given in correct form
+
 using commandList = std::vector<std::string>;
 namespace command {
 
@@ -27,8 +30,8 @@ public:
     void    assignInput(const commandList& args) override;
 private:
     Timeline&   _timeline;
-    float       _beat;
-    float       _timestamp;
+    double      _beat;
+    double      _timestamp;
 };
 
 class DefineEndTempo final : public Command {
@@ -39,7 +42,7 @@ public:
     void    assignInput(const commandList& args) override;
 private:
     Timeline&   _timeline;
-    float       _tempo;
+    double      _tempo;
 };
 
 class ConvertTimeToBeat final : public Command {
@@ -50,7 +53,7 @@ public:
     void    assignInput(const commandList& args) override;
 private:
     Timeline&   _timeline;
-    float       _time;
+    double      _time;
 };
 
 class ConvertBeatToTime final : public Command {
@@ -61,7 +64,7 @@ public:
     void    assignInput(const commandList& args) override;
 private:
     Timeline&   _timeline;
-    float       _beat;
+    double      _beat;
 };
 
 class CommandProcessor {
@@ -72,7 +75,7 @@ public:
     ~CommandProcessor() = default;
 
     template <typename C, typename ...Refs>
-    void    registerCommand(std::string name, Refs&... refs);
+    void    registerCommand(std::string name, Refs&&... refs);
     int     executeCommand(const utility::CommandData& cd);
 private:
     std::unordered_map<std::string, std::unique_ptr<Command>>  _commands;

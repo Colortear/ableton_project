@@ -44,16 +44,13 @@ ConvertTimeToBeat::ConvertTimeToBeat(Timeline& timeline) :
 
 int ConvertTimeToBeat::invoke()
 {
-    if (auto ret = _timeline.getBeatFromTime(_time); ret != -1) {
-        std::cout << ret << std::endl;
-        return 0;
-    }
-    return 1;
+    std::cout << _timeline.getBeatFromTime(_time) << std::endl;
+    return 0;
 }
 
 void    ConvertTimeToBeat::assignInput(const commandList& args)
 {
-    _time = std::stof(args[0]);
+    _time = std::stod(args[0]);
 }
 
 ConvertBeatToTime::ConvertBeatToTime(Timeline& timeline) :
@@ -63,16 +60,13 @@ ConvertBeatToTime::ConvertBeatToTime(Timeline& timeline) :
 
 int ConvertBeatToTime::invoke()
 {
-    if (auto time = _timeline.getTimeFromBeat(_beat); time != -1) {
-        std::cout << time << std::endl;
-        return 0;
-    }
-    return 1;
+    std::cout << _timeline.getTimeFromBeat(_beat) << std::endl;
+    return 0;
 }
 
 void    ConvertBeatToTime::assignInput(const commandList& args)
 {
-    _beat = std::stof(args[0]);
+    _beat = std::stod(args[0]);
 }
 
 }
