@@ -1,5 +1,6 @@
 #include "../../include/MarkerMap.h"
 #include "../../include/utility.h"
+#include <iostream>
 
 using namespace locusmap;
 using namespace utility;
@@ -48,8 +49,8 @@ void    MarkerMap::insertRelationship(const double above, const double below)
     auto wmcopy = wm;
 
     removeIntersecting(pole {above, below});
-    _beatMap.emplace(above, wm);
-    _timeMap.emplace(below, wmcopy);
+    _beatMap.insert(std::pair(above, wm));
+    _timeMap.insert(std::pair(below, wmcopy));
 }
 
 size_t  MarkerMap::size() const
@@ -69,15 +70,21 @@ void    MarkerMap::eraseMarkerByTime(map_iter mi, double beatKey)
     _beatMap.erase(beatKey);
 }
 
+void    MarkerMap::removeIntersecting(const pole& marker)
+{
+    removeFromBeat(marker);
+    removeFromTime(marker);
+}
+
 void    MarkerMap::removeFromBeat(const pole& marker)
 {
     auto [beat, time] = marker;
 
-    for (auto it = _beatMap.lower_bound(beat); it != _beatMap.end(); it++) {
+    for (auto it = _beatMap.lower_bound(beat); it != _beatMap.end() && _beatMap.size(); it++) {
         if (it->first > beat && it->second->time() > time)
             break ;
         if (isIntersecting(pole {beat, time}, pole {it->first, it->second->time()}))
-            eraseMarkerByTime(it, it->second->time());
+            eraseMarkerByBeat(it, it->second->time());
     }
 }
 
@@ -85,18 +92,12 @@ void    MarkerMap::removeFromTime(const pole& marker)
 {
     auto [beat, time] = marker;
 
-    for (auto it = _timeMap.lower_bound(time); it != _timeMap.end(); it++) {
+    for (auto it = _timeMap.lower_bound(time); it != _timeMap.end() && _timeMap.size(); it++) {
         if (it->first > time && it->second->time() > beat)
             break ;
         if (isIntersecting(pole {beat, time}, pole {it->second->beat(), it->first}))
             eraseMarkerByTime(it, it->second->beat());
     }
-}
-
-void    MarkerMap::removeIntersecting(const pole& marker)
-{
-    removeFromBeat(marker);
-    removeFromTime(marker);
 }
 
 bool    MarkerMap::isIntersecting(const pole& m1, const pole& m2) const
