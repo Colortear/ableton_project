@@ -1,14 +1,16 @@
 #include "../include/warpedrecord.h"
 #include <utility>
 
+using namespace timeline;
+
 namespace command {
 
-void    registerCommands(CommandProcessor& cp, Timeline& timeline)
+void    registerCommands(CommandProcessor& cp, ITimeline& timeline)
 {
-    cp.registerCommand<InsertWarpMarker, Timeline&>("marker", timeline);
-    cp.registerCommand<DefineEndTempo, Timeline&>("end_tempo", timeline);
-    cp.registerCommand<ConvertTimeToBeat, Timeline&>("s2b", timeline);
-    cp.registerCommand<ConvertBeatToTime, Timeline&>("b2s", timeline);
+    cp.registerCommand<InsertWarpMarker, ITimeline&>("marker", timeline);
+    cp.registerCommand<DefineEndTempo, ITimeline&>("end_tempo", timeline);
+    cp.registerCommand<ConvertTimeToBeat, ITimeline&>("s2b", timeline);
+    cp.registerCommand<ConvertBeatToTime, ITimeline&>("b2s", timeline);
 }
 
 }

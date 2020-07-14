@@ -18,6 +18,8 @@ GMOCK_INC_DIR = $(TEST_INC_DIR)/gmock
 
 GTEST_INC_DIR = $(TEST_INC_DIR)/gtest
 
+MOCK_TEST_INC_DIR = $(TEST_INC_DIR)/testClasses
+
 LIB_DIR = lib
 
 CXXFLAGS = -g -lstdc++ -std=c++17 -Wall -Werror -Wextra
@@ -26,8 +28,7 @@ INC_FLAGS = -I./$(INC_DIR)
 
 TEST_LIB_FLAGS = -L$(LIB_DIR) -lgtest -lgtest_main -lgmock -lgmock_main -lpthread
 
-#TEST_INC_FLAGS = -I$(GTEST_INC_DIR) -I$(GMOCK_INC_DIR)
-TEST_INC_FLAGS = -I$(TEST_INC_DIR)
+TEST_INC_FLAGS = -I$(GTEST_INC_DIR) -I$(GMOCK_INC_DIR) -I$(MOCK_TEST_INC_DIR)
 
 SRC_DIR = src/
 

@@ -5,7 +5,7 @@
 # include <memory>
 # include <unordered_map>
 # include <string>
-# include "Timeline.h"
+# include "ITimeline.h"
 # include "utility.h"
 
 // There would normally be an implementation of input error handling here
@@ -24,46 +24,46 @@ public:
 
 class InsertWarpMarker final : public Command {
 public:
-    InsertWarpMarker(Timeline& timeline);
+    InsertWarpMarker(timeline::ITimeline& timeline);
 
     int     invoke() override;
     void    assignInput(const commandList& args) override;
 private:
-    Timeline&   _timeline;
-    double      _beat;
-    double      _timestamp;
+    timeline::ITimeline&    _timeline;
+    double                  _beat;
+    double                  _timestamp;
 };
 
 class DefineEndTempo final : public Command {
 public:
-    DefineEndTempo(Timeline& timeline);
+    DefineEndTempo(timeline::ITimeline& timeline);
 
     int     invoke() override;
     void    assignInput(const commandList& args) override;
 private:
-    Timeline&   _timeline;
-    double      _tempo;
+    timeline::ITimeline&    _timeline;
+    double                  _tempo;
 };
 
 class ConvertTimeToBeat final : public Command {
 public:
-    ConvertTimeToBeat(Timeline& timeline);
+    ConvertTimeToBeat(timeline::ITimeline& timeline);
 
     int     invoke() override;
     void    assignInput(const commandList& args) override;
 private:
-    Timeline&   _timeline;
-    double      _time;
+    timeline::ITimeline&    _timeline;
+    double                  _time;
 };
 
 class ConvertBeatToTime final : public Command {
 public:
-    ConvertBeatToTime(Timeline& timeline);
+    ConvertBeatToTime(timeline::ITimeline& timeline);
 
     int     invoke() override;
     void    assignInput(const commandList& args) override;
 private:
-    Timeline&   _timeline;
+    timeline::ITimeline&    _timeline;
     double      _beat;
 };
 
@@ -81,7 +81,7 @@ private:
     std::unordered_map<std::string, std::unique_ptr<Command>>  _commands;
 };
 
-void    registerCommands(CommandProcessor& cp, Timeline& timeline);
+void    registerCommands(CommandProcessor& cp, timeline::ITimeline& timeline);
 
 #include "registerCommand.tpp"
 

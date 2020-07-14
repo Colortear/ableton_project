@@ -1,9 +1,11 @@
 #include "../../include/Command.h"
 #include <iostream>
 
+using namespace timeline;
+
 namespace command {
 
-InsertWarpMarker::InsertWarpMarker(Timeline& timeline) :
+InsertWarpMarker::InsertWarpMarker(ITimeline& timeline) :
     _timeline(timeline),
     _beat(0.0),
     _timestamp(0.0)
@@ -21,7 +23,7 @@ void    InsertWarpMarker::assignInput(const commandList& args)
     _timestamp = std::stof(args[1]);
 }
 
-DefineEndTempo::DefineEndTempo(Timeline& timeline) :
+DefineEndTempo::DefineEndTempo(ITimeline& timeline) :
     _timeline(timeline),
     _tempo(0.0)
 {}
@@ -37,7 +39,7 @@ void    DefineEndTempo::assignInput(const commandList& args)
     _tempo = std::stof(args[0]);
 }
 
-ConvertTimeToBeat::ConvertTimeToBeat(Timeline& timeline) :
+ConvertTimeToBeat::ConvertTimeToBeat(ITimeline& timeline) :
     _timeline(timeline),
     _time(0.0)
 {}
@@ -53,7 +55,7 @@ void    ConvertTimeToBeat::assignInput(const commandList& args)
     _time = std::stod(args[0]);
 }
 
-ConvertBeatToTime::ConvertBeatToTime(Timeline& timeline) :
+ConvertBeatToTime::ConvertBeatToTime(ITimeline& timeline) :
     _timeline(timeline),
     _beat(0.0)
 {}

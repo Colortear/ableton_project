@@ -4,7 +4,9 @@
 
 using namespace locusmap;
 
-Timeline::Timeline(std::unique_ptr<LocusMap> lm) :
+namespace timeline {
+
+Timeline::Timeline(timelineMap lm) :
     _warpMarkerMap(std::move(lm)),
     _endTempo(1.0)
 {}
@@ -68,4 +70,6 @@ double  Timeline::calculateTimeByTempo(const double inc, const pole& lower) cons
 double  Timeline::calculateBeatByTempo(const double inc, const pole& lower) const
 {
     return ((inc - lower.below) * _endTempo) + lower.above;
+}
+
 }

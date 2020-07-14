@@ -21,7 +21,7 @@ public:
     LocusMap&   operator=(const LocusMap&) = delete;
     LocusMap(LocusMap&& lm) = default;
     LocusMap&   operator=(LocusMap&& lm) = default;
-    ~LocusMap() = default;
+    virtual ~LocusMap() = default;
 
     virtual option_pole upperBoundAboveMap(double) const = 0;
     virtual option_pole lowerBoundAboveMap(double) const = 0;
