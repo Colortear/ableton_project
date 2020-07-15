@@ -18,7 +18,7 @@ public:
     void    setEndTempo(const double tempo) override;
     double  getBeatFromTime(const double timeVal) const override;
     double  getTimeFromBeat(const double beatVal) const override;
-//private:
+private:
     double  calculateRelationship(const double inc, const range& r1, const range& r2) const override;
     double  calculateTimeByTempo(const double inc, const locusmap::pole& lower) const override;
     double  calculateBeatByTempo(const double inc, const locusmap::pole& lower) const override;

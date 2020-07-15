@@ -22,12 +22,10 @@ public:
     void    insertRelationship(const double beat, const double time) override;
     size_t  aSize() const override;
     size_t  bSize() const override;
-//private:
+private:
     void    removeIntersecting(const locusmap::pole& marker) override;
     void    removeFromBeat(const locusmap::pole& marker);
     void    removeFromTime(const locusmap::pole& marker);
-    void    eraseMarkerByTime(map_iter mi, double timeKey);
-    void    eraseMarkerByBeat(map_iter mi, double beatKey);
     bool    isIntersecting(const locusmap::pole& m1, const locusmap::pole& m2) const override;
 
     marker_map  _beatMap;

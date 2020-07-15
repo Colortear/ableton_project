@@ -44,7 +44,9 @@ TEST_F(TimelineTest, getBeatFromTime) {
     EXPECT_EQ(t2.getBeatFromTime(2.0), 210);
 }
 
-TEST_F(TimelineTest, calculateRelationship) {
+// private member tests
+
+/*TEST_F(TimelineTest, calculateRelationship) {
 }
 
 TEST_F(TimelineTest, calculateTimeByTempo) {
@@ -53,4 +55,4 @@ TEST_F(TimelineTest, calculateTimeByTempo) {
 
 TEST_F(TimelineTest, calculateBeatByTempo) {
     EXPECT_EQ(t1.calculateBeatByTempo(6.0, {1.0, 5.0}), 11.0);
-}
+}*/

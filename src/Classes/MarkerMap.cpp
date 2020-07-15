@@ -70,30 +70,24 @@ void    MarkerMap::removeIntersecting(const pole& marker)
 void    MarkerMap::removeFromBeat(const pole& marker)
 {
     auto [beat, time] = marker;
-    auto it = _beatMap.lower_bound(beat);
-    auto beatFirst = it;
 
-    for (; _beatMap.size(); it++) {
-        if (it != _beatMap.end() &&
-                isIntersecting({beat, time}, {it->first, it->second->time()}))
-            continue ;
-        _beatMap.erase(beatFirst, it);
-        return ;
+    for (auto it = _beatMap.begin(); it != _beatMap.end();) {
+        if (isIntersecting({beat, time}, {it->first, it->second->time()}))
+            it = _beatMap.erase(it);
+        else
+            ++it;
     }
 }
 
 void    MarkerMap::removeFromTime(const pole& marker)
 {
     auto [beat, time] = marker;
-    auto it = _timeMap.lower_bound(time);
-    auto timeFirst = it;
 
-    for (; _timeMap.size(); it++) {
-        if (it != _timeMap.end() &&
-                isIntersecting({beat, time}, {it->second->beat(), it->first}))
-            continue ;
-        _timeMap.erase(timeFirst, it);
-        return ;
+    for (auto it = _timeMap.begin(); it != _timeMap.end();) {
+        if (isIntersecting({beat, time}, {it->second->beat(), it->first}))
+            it = _timeMap.erase(it);
+        else
+            ++it;
     }
 }
 
