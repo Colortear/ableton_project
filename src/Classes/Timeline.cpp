@@ -28,7 +28,7 @@ double  Timeline::getTimeFromBeat(const double beatVal) const
     if (upperBound && lowerBound) {
         beat_r = range {lowerBound->above, upperBound->above};
         time_r = range {lowerBound->below, upperBound->below};
-        return calculateRelationship(beatVal, time_r, beat_r);
+        return calculateRelationship(beatVal, beat_r, time_r);
     }
     else if (!upperBound || (!lowerBound && _warpMarkerMap->aSize() == 1))
         return calculateTimeByTempo(beatVal, *lowerBound);
@@ -46,7 +46,7 @@ double  Timeline::getBeatFromTime(const double timeVal) const
     if (upperBound && lowerBound) {
         beat_r = range {lowerBound->above, upperBound->above};
         time_r = range {lowerBound->below, upperBound->below};
-        return calculateRelationship(timeVal, beat_r, time_r);
+        return calculateRelationship(timeVal, time_r, beat_r);
     }
     else if (!upperBound || (!lowerBound && _warpMarkerMap->bSize() == 1))
         return calculateBeatByTempo(timeVal, *lowerBound);
@@ -57,7 +57,10 @@ double  Timeline::getBeatFromTime(const double timeVal) const
 
 double  Timeline::calculateRelationship(const double inc, const range& r1, const range& r2) const
 {
-    return inc * ((r1.upper - r1.lower) / (r2.upper - r2.lower));
+    auto ratio = ((inc - r1.lower) / (r1.upper - r1.lower));
+    auto other_distance = r2.upper - r2.lower;
+
+    return r2.lower + (ratio * other_distance);
 }
 
 double  Timeline::calculateTimeByTempo(const double inc, const pole& lower) const

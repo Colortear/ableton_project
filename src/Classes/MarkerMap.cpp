@@ -91,6 +91,7 @@ void    MarkerMap::removeFromTime(const pole& marker)
     }
 }
 
+static
 bool    isBefore(const pole& m1, const pole& m2)
 {
     return m2.above <= m1.above || m2.below <= m1.below;

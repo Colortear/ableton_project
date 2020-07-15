@@ -14,27 +14,26 @@ s2b <sample time>:
     In order to find the interpolation a point on the sample line, find the markers that delimit
     the area that the point is contained. The the lower and upper bound of the area signify
     the markers closest to the provided sample time are used to get the distance between the two.
-    The corresponding side can be found by finding the distance between sample times in the upper
-    and lower bounds (markers) and then finding the distance between the corresponding diametric
-    poles. The beat distance is then divided by the sample distance (opposing end). The resulting
-    ratio and the original value to be applied (input) are multipled for the corresponding
-    beat time. In other words:
+    In order to find the corresponding value we must expand or contract the values to the relative
+    scale of the opposing line using these upper and lower bounds which are connected by the markers
+    provided by the input.
+    The corresponding side can be found by dividing the difference between the given value and it's
+    lower bound (previous marker) by the distance between it's lower and upper bound. This is
+    multiplied by the difference between the related points (upper and lower bounds)on the other
+    line provided by the marker and this value. Finally, the lower bounds on the other line is added 
+    to the new fraction produced by applying the ratio found on the originating line. In other words:
     Where s = sample time (input), Us = sample upper bound, Ls = sample lower bound,
-    Ub = beat upper bound, Lb = beat lower bound:
+    Ub = beat upper bound, Lb = beat lower bound
 
-                          Ub - Lb
-                  b = s * -------
-                          Us - Ls
+                                        s - Ls
+                    b = Lb + ((Ub - Lb) ------- )
+                                        Us - Ls
 
-    and b is now the corresponding time to s per the relationship of the markers.
-
- b2s <beat time>:
-    calculating the corresponding value of a given beat value is as simple as reversing the
-    values in the previous calculation where the sample distance is now divided by the beat
-    distance:
-                        Us - Ls
-                s = b * -------
-                        Ub - Lb
+b2s <beat time>:
+    Or for time
+                                        b - Lb 
+                    s = Ls + ((Us - LS) ------- )
+                                        Ub - Lb
 
 There are two special cases regarding the number of markers currently in the map. If the map is
 empty there is no special characteristic of the values and the rate between the two is constant,
@@ -46,14 +45,14 @@ single marker. Therefore if the map is populated with only a single marker then 
 be processed at the rate of end_tempo. The relationships past the final can be calculated for
 given a sample value where tempo is beats per one second (sample unit):
 
-                b = ((s - Ls) * tempo) + Lb
+                    b = ((s - Ls) * tempo) + Lb
                   
 and to find the converse:
 
-                           b - Lb
-                 s = Ls + --------
-                           tempo
+                              b - Lb
+                    s = Ls + --------
+                              tempo
 
 to calculate the relationship between the first marker and 0 in instance that there are multiple
 markers, that first segment is treated as an extension of the segment demarcated by the first
-and second markers.
+and second markers (or with the above solution using tempo).

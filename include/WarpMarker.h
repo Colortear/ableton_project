@@ -1,5 +1,5 @@
-#ifndef WARP_MARKER_H
-# define WARP_MARKER_H
+#ifndef WARPMARKER_H
+# define WARPMARKER_H
 
 class WarpMarker {
 public:
@@ -15,4 +15,4 @@ private:
     const double _timestamp;
 };
 
-#endif // WARP_MARKER_H
+#endif // WARPMARKER_H

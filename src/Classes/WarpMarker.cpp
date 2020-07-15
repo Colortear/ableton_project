@@ -10,8 +10,6 @@ WarpMarker::WarpMarker(WarpMarker&& wm) :
     _timestamp(wm.time())
 {}
 
-inline
 double  WarpMarker::beat() const { return _beat; }
 
-inline
 double  WarpMarker::time() const { return _timestamp; }

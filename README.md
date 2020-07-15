@@ -1,5 +1,8 @@
 # ableton_project
 
+This is my solution to the third prompt which details a program for placing warp markers between
+a beat and timestamp timeline.
+
 # build
 
 Run `make` in the root directory.
