@@ -3,8 +3,9 @@
 
 # include <map>
 # include <memory>
-# include "MarkerMap.h"
-# include "ITimeline.h"
+# include <MarkerMap.h>
+# include <ITimeline.h>
+# include <Timeline_test.h>
 
 /* Operations:
  * marker <beat time> <sample time>:
@@ -71,6 +72,7 @@
 namespace timeline {
 
 class Timeline final : public ITimeline {
+    friend class TimelineTest;
 public:
     using timelineMap = std::unique_ptr<locusmap::LocusMap>;
 

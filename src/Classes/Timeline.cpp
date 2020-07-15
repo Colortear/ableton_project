@@ -26,14 +26,14 @@ double  Timeline::getTimeFromBeat(const double beatVal) const
     auto    lowerBound = _warpMarkerMap->lowerBoundAboveMap(beatVal);
 
     if (upperBound && lowerBound) {
-            beat_r = range {lowerBound->above, upperBound->above};
-            time_r = range {lowerBound->below, upperBound->below};
-            return calculateRelationship(beatVal, time_r, beat_r);
-        }
-        else if (!upperBound || (!lowerBound && _warpMarkerMap->size() == 1))
-            return calculateTimeByTempo(beatVal, *lowerBound);
-        else if (!lowerBound)
-            getTimeFromBeat(upperBound->above);
+        beat_r = range {lowerBound->above, upperBound->above};
+        time_r = range {lowerBound->below, upperBound->below};
+        return calculateRelationship(beatVal, time_r, beat_r);
+    }
+    else if (!upperBound || (!lowerBound && _warpMarkerMap->size() == 1))
+        return calculateTimeByTempo(beatVal, *lowerBound);
+    else if (!lowerBound)
+        getTimeFromBeat(upperBound->above);
     return beatVal;
 }
 
