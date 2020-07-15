@@ -1,4 +1,5 @@
 #include "../../include/Timeline.h"
+#include <cmath>
 
 using namespace locusmap;
 
@@ -19,6 +20,38 @@ void    Timeline::setEndTempo(const double tempo)
     _endTempo = tempo;
 }
 
+double  Timeline::getNextRatioAbove(const pole& lower) const
+{
+    auto [above, below] = lower;
+
+    try {
+        auto upper = _warpMarkerMap->upperBoundAboveMap(std::nextafter(above, above+1.0));
+
+        if (!upper)
+            throw;
+        return (upper->below - below) / (upper->above - above);
+    }
+    catch (std::exception& e) {
+        return 1.0;
+    }
+}
+
+double  Timeline::getNextRatioBelow(const pole& lower) const
+{
+    auto [above, below] = lower;
+
+    try {
+        auto upper = _warpMarkerMap->upperBoundBelowMap(std::nextafter(below, below+1.0));
+
+        if (!upper)
+            throw ;
+        return (upper->above - above) / (upper->below - below);
+    }
+    catch (std::exception& e) {
+        return 1.0;
+    }
+}
+
 double  Timeline::getTimeFromBeat(const double beatVal) const
 {
     range   beat_r, time_r;
@@ -32,8 +65,9 @@ double  Timeline::getTimeFromBeat(const double beatVal) const
     }
     else if (!upperBound || (!lowerBound && _warpMarkerMap->aSize() == 1))
         return calculateTimeByTempo(beatVal, *lowerBound);
-    else if (!lowerBound && upperBound)
-        getTimeFromBeat(upperBound->above);
+    else if (!lowerBound && upperBound) {
+        return upperBound->below - (getNextRatioAbove(*upperBound) * (upperBound->above - beatVal));
+    }
     return beatVal;
 }
 
@@ -50,8 +84,8 @@ double  Timeline::getBeatFromTime(const double timeVal) const
     }
     else if (!upperBound || (!lowerBound && _warpMarkerMap->bSize() == 1))
         return calculateBeatByTempo(timeVal, *lowerBound);
-    else if (!lowerBound)
-        return getBeatFromTime(upperBound->below);
+    else if (!lowerBound && upperBound)
+        return upperBound->above - (getNextRatioBelow(*upperBound) * (upperBound->below - timeVal));
     return timeVal;
 }
 

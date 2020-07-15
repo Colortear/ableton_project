@@ -1,7 +1,14 @@
 # ableton_project
 
 This is my solution to the third prompt which details a program for placing warp markers between
-a beat and timestamp timeline.
+a beat and timestamp timeline. This was written on Manjaro and should work on any Linux distro
+and macOS.
+
+# dependencies
+
+* `make`
+*  a version of gcc that supports c++17
+*  `cmake` and `git` for gtest
 
 # build
 
@@ -20,3 +27,5 @@ warpedrecord_test binary.
 `./warpedrecord`
 
 The binary can receive input manually until sent `SIGINT` or by piping in with `cat`.
+
+`./warpedrecord_test` will run all tests located in the `tests` folder in `src`

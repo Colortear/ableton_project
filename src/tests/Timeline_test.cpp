@@ -53,6 +53,7 @@ TEST_F(TimelineTest, insertWarpMarker) {
 TEST_F(TimelineTest, getTimeFromBeat) {
     EXPECT_EQ(t3.getTimeFromBeat(12.5), 8.5);
     EXPECT_EQ(t3.getTimeFromBeat(17), 17);
+    EXPECT_EQ(t3.getTimeFromBeat(0.5), 3.75);
 }
 
 TEST_F(TimelineTest, getBeatFromTime) {
