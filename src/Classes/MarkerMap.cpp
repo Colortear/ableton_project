@@ -47,8 +47,8 @@ void    MarkerMap::insertRelationship(const double above, const double below)
     auto wmcopy = wm;
 
     removeIntersecting(pole {above, below});
-    _beatMap.insert(std::pair(above, wm));
-    _timeMap.insert(std::pair(below, wmcopy));
+    _beatMap[above] = wm;
+    _timeMap[below] = wmcopy;
 }
 
 size_t  MarkerMap::aSize() const
@@ -61,18 +61,6 @@ size_t  MarkerMap::bSize() const
     return _timeMap.size();
 }
 
-void    MarkerMap::eraseMarkerByBeat(map_iter mi, double timeKey) 
-{
-    _beatMap.erase(mi);
-    _timeMap.erase(timeKey);
-}
-
-void    MarkerMap::eraseMarkerByTime(map_iter mi, double beatKey)
-{
-    _timeMap.erase(mi);
-    _beatMap.erase(beatKey);
-}
-
 void    MarkerMap::removeIntersecting(const pole& marker)
 {
     removeFromBeat(marker);
@@ -82,30 +70,38 @@ void    MarkerMap::removeIntersecting(const pole& marker)
 void    MarkerMap::removeFromBeat(const pole& marker)
 {
     auto [beat, time] = marker;
+    auto it = _beatMap.lower_bound(beat);
+    auto beatFirst = it;
 
-    for (auto it = _beatMap.lower_bound(beat); it != _beatMap.end() && _beatMap.size(); it++) {
-        if (it->first > beat && it->second->time() > time)
-            break ;
-        if (isIntersecting(pole {beat, time}, pole {it->first, it->second->time()}))
-            eraseMarkerByBeat(it, it->second->time());
+    for (; _beatMap.size(); it++) {
+        if (it != _beatMap.end() &&
+                isIntersecting(pole {beat, time}, pole {it->first, it->second->time()}))
+            continue ;
+        _beatMap.erase(beatFirst, it);
+        return ;
     }
 }
 
 void    MarkerMap::removeFromTime(const pole& marker)
 {
     auto [beat, time] = marker;
+    auto it = _timeMap.lower_bound(time);
+    auto timeFirst = it;
 
-    for (auto it = _timeMap.lower_bound(time); it != _timeMap.end() && _timeMap.size(); it++) {
-        if (it->first > time && it->second->time() > beat)
-            break ;
-        if (isIntersecting(pole {beat, time}, pole {it->second->beat(), it->first}))
-            eraseMarkerByTime(it, it->second->beat());
+    for (; _timeMap.size(); it++) {
+        if (it != _timeMap.end() &&
+                isIntersecting(pole {beat, time}, pole {it->second->beat(), it->first}))
+            continue ;
+        _timeMap.erase(timeFirst, it);
+        return ;
     }
 }
 
 bool    MarkerMap::isIntersecting(const pole& m1, const pole& m2) const
 {
-    auto above = m2.above - m1.above;
-    auto below = m2.below - m1.below;
-    return (above <= 0 && below >= 0) || (above >= 0 && below <= 0);
+    auto aboveDist = m2.above - m1.above;
+    auto belowDist = m2.below - m1.below;
+
+    return (m2.above <= m1.above || m2.below <= m1.below) &&
+        ((aboveDist <= 0 && belowDist >= 0) || (aboveDist >= 0 && belowDist <= 0));
 }

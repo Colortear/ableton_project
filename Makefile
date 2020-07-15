@@ -34,7 +34,7 @@ CLASS_DIR = $(SRC_DIR)Classes/
 
 _CLASSES = WarpMarker.cpp CommandProcessor.cpp Command.cpp Timeline.cpp MarkerMap.cpp
 _SRC = main.cpp registerCommands.cpp utility.cpp
-_TESTS = Timeline_test.cpp
+_TESTS = Timeline_test.cpp MarkerMap_test.cpp
 
 SRC = $(addprefix $(SRC_DIR), $(_SRC))
 CLASSES = $(addprefix $(CLASS_DIR), $(_CLASSES))

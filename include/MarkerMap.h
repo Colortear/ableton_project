@@ -22,7 +22,7 @@ public:
     void    insertRelationship(const double beat, const double time) override;
     size_t  aSize() const override;
     size_t  bSize() const override;
-private:
+//private:
     void    removeIntersecting(const locusmap::pole& marker) override;
     void    removeFromBeat(const locusmap::pole& marker);
     void    removeFromTime(const locusmap::pole& marker);
