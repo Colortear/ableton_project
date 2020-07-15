@@ -75,7 +75,7 @@ void    MarkerMap::removeFromBeat(const pole& marker)
 
     for (; _beatMap.size(); it++) {
         if (it != _beatMap.end() &&
-                isIntersecting(pole {beat, time}, pole {it->first, it->second->time()}))
+                isIntersecting({beat, time}, {it->first, it->second->time()}))
             continue ;
         _beatMap.erase(beatFirst, it);
         return ;
@@ -90,11 +90,16 @@ void    MarkerMap::removeFromTime(const pole& marker)
 
     for (; _timeMap.size(); it++) {
         if (it != _timeMap.end() &&
-                isIntersecting(pole {beat, time}, pole {it->second->beat(), it->first}))
+                isIntersecting({beat, time}, {it->second->beat(), it->first}))
             continue ;
         _timeMap.erase(timeFirst, it);
         return ;
     }
+}
+
+bool    isBefore(const pole& m1, const pole& m2)
+{
+    return m2.above <= m1.above || m2.below <= m1.below;
 }
 
 bool    MarkerMap::isIntersecting(const pole& m1, const pole& m2) const
@@ -102,6 +107,7 @@ bool    MarkerMap::isIntersecting(const pole& m1, const pole& m2) const
     auto aboveDist = m2.above - m1.above;
     auto belowDist = m2.below - m1.below;
 
-    return (m2.above <= m1.above || m2.below <= m1.below) &&
-        ((aboveDist <= 0 && belowDist >= 0) || (aboveDist >= 0 && belowDist <= 0));
+    return isBefore(m1, m2) &&
+        ((aboveDist <= 0 && belowDist >= 0) ||
+         (aboveDist >= 0 && belowDist <= 0));
 }
