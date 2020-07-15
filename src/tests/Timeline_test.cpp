@@ -1,4 +1,4 @@
-#include "../../include/test/gtest/gtest.h"
+#include <gtest/gtest.h>
 #include "../../include/warpedrecord.h"
 
 using namespace timeline;

@@ -1,7 +1,5 @@
 #include "../../include/Timeline.h"
 
-// public members
-
 using namespace locusmap;
 
 namespace timeline {
