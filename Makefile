@@ -51,7 +51,7 @@ $(ODIR)/%.o: $(CLASS_DIR)%.cpp
 	$(CC) $(INC_FLAGS) -c $< -o $@ $(CXXFLAGS)
 
 $(TEST_ODIR)/%.o: $(TEST_DIR)%.cpp
-	$(CC) $(TEST_INC_FLAGS) -c -o $@ $< $(CXXFLAGS)
+	$(CC) $(INC_FLAGS) $(TEST_INC_FLAGS) -c -o $@ $< $(CXXFLAGS)
 
 $(NAME): $(OBJ)
 	$(CC) -o $@ $^ $(CXXFLAGS)

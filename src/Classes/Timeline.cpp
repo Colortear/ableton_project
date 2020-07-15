@@ -30,9 +30,9 @@ double  Timeline::getTimeFromBeat(const double beatVal) const
         time_r = range {lowerBound->below, upperBound->below};
         return calculateRelationship(beatVal, time_r, beat_r);
     }
-    else if (!upperBound || (!lowerBound && _warpMarkerMap->size() == 1))
+    else if (!upperBound || (!lowerBound && _warpMarkerMap->aSize() == 1))
         return calculateTimeByTempo(beatVal, *lowerBound);
-    else if (!lowerBound)
+    else if (!lowerBound && upperBound)
         getTimeFromBeat(upperBound->above);
     return beatVal;
 }
@@ -42,13 +42,13 @@ double  Timeline::getBeatFromTime(const double timeVal) const
     range   beat_r, time_r;
     auto    upperBound = _warpMarkerMap->upperBoundBelowMap(timeVal);
     auto    lowerBound = _warpMarkerMap->lowerBoundBelowMap(timeVal);
-    
+
     if (upperBound && lowerBound) {
         beat_r = range {lowerBound->above, upperBound->above};
         time_r = range {lowerBound->below, upperBound->below};
         return calculateRelationship(timeVal, beat_r, time_r);
     }
-    else if ((!lowerBound && _warpMarkerMap->size() == 1) || !upperBound)
+    else if (!upperBound || (!lowerBound && _warpMarkerMap->bSize() == 1))
         return calculateBeatByTempo(timeVal, *lowerBound);
     else if (!lowerBound)
         return getBeatFromTime(upperBound->below);

@@ -28,7 +28,8 @@ public:
     virtual option_pole upperBoundBelowMap(double) const = 0;
     virtual option_pole lowerBoundBelowMap(double) const = 0;
     virtual void    insertRelationship(const double, const double) = 0;
-    virtual size_t  size() const = 0;
+    virtual size_t  aSize() const = 0;
+    virtual size_t  bSize() const = 0;
 protected:
     virtual void    removeIntersecting(const pole&) = 0;
     virtual bool    isIntersecting(const pole&, const pole&) const = 0;

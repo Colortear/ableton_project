@@ -15,8 +15,7 @@ option_pole   MarkerMap::upperBoundAboveMap(double point) const
 option_pole MarkerMap::lowerBoundAboveMap(double point) const
 {
     if (_beatMap.size()) {
-        if (auto it = _beatMap.lower_bound(point);
-                it != _beatMap.end() && it != _beatMap.begin()) {
+        if (auto it = _beatMap.lower_bound(point); it != _beatMap.begin()) {
             it--;
             return option_pole({it->first, it->second->time()});
         }
@@ -34,8 +33,7 @@ option_pole   MarkerMap::upperBoundBelowMap(double point) const
 option_pole MarkerMap::lowerBoundBelowMap(double point) const
 {
     if (_timeMap.size()) {
-        if (auto it = _timeMap.lower_bound(point);
-                it != _timeMap.end() && it != _timeMap.begin()) {
+        if (auto it = _timeMap.lower_bound(point); it != _timeMap.begin()) {
             it--;
             return option_pole({it->second->beat(), it->first});
         }
@@ -53,7 +51,12 @@ void    MarkerMap::insertRelationship(const double above, const double below)
     _timeMap.insert(std::pair(below, wmcopy));
 }
 
-size_t  MarkerMap::size() const
+size_t  MarkerMap::aSize() const
+{
+    return _beatMap.size();
+}
+
+size_t  MarkerMap::bSize() const
 {
     return _timeMap.size();
 }

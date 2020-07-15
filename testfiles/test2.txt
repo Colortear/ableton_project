@@ -1,0 +1,6 @@
+marker 0 0
+marker 90 1
+marker 720 7
+end_tempo 100
+b2s 40
+s2b 6

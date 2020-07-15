@@ -1,9 +1,23 @@
 #include <gtest/gtest.h>
-#include <Timeline_test.h>
 #include "../../include/warpedrecord.h"
 
 using namespace timeline;
 using namespace locusmap;
+
+class TimelineTest : public ::testing::Test {
+protected:
+    TimelineTest() :
+        t1(std::make_unique<MarkerMap>())
+    {}
+
+    void    SetUp() override {
+        t1.insertWarpMarker(0.0, 0.0);
+        t1.insertWarpMarker(1.0, 5.0);
+        t1.setEndTempo(10.0);
+    }
+
+    Timeline    t1;
+};
 
 TEST_F(TimelineTest, insertWarpMarker) {
 }
@@ -24,5 +38,5 @@ TEST_F(TimelineTest, calculateTimeByTempo) {
 }
 
 TEST_F(TimelineTest, calculateBeatByTempo) {
-    EXPECT_EQ(t1.calculateBeatByTempo(6.0, {1.0, 5.0}), 11.0);
+    EXPECT_EQ(t1.calculateBeatByTempo(6.0, {1.0, 5.0}), 17.0);
 }

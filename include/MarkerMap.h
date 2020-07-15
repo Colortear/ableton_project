@@ -20,7 +20,8 @@ public:
     locusmap::option_pole   upperBoundBelowMap(const double point) const override;
     locusmap::option_pole   lowerBoundBelowMap(const double point) const override;
     void    insertRelationship(const double beat, const double time) override;
-    size_t  size() const override;
+    size_t  aSize() const override;
+    size_t  bSize() const override;
 private:
     void    removeIntersecting(const locusmap::pole& marker) override;
     void    removeFromBeat(const locusmap::pole& marker);
