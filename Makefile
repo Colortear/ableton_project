@@ -76,7 +76,5 @@ clean:
 fclean: clean
 	$(RM) $(NAME) $(TEST_NAME)
 
-re: fclean all
-
 .PHONY: all fclean clean re test
 
