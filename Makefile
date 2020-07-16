@@ -18,9 +18,7 @@ MOCK_TEST_INC_DIR = $(TEST_INC_DIR)/testClasses
 
 LIB_DIR = lib
 
-CXXFLAGS = -g -O1 -lstdc++ -std=c++17 -Wall -Werror -Wextra -lm
-
-TEST_FLAGS =
+CXXFLAGS = -O1 -lstdc++ -std=c++17 -Wall -Werror -Wextra -lm
 
 INC_FLAGS = -I./$(INC_DIR)
 
