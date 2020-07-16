@@ -10,7 +10,8 @@ protected:
     TimelineTest() :
         t1(std::make_unique<MarkerMap>()),
         t2(std::make_unique<MarkerMap>()),
-        t3(std::make_unique<MarkerMap>())
+        t3(std::make_unique<MarkerMap>()),
+        t4(std::make_unique<MarkerMap>())
     {}
 
     void    SetUp() override {
@@ -40,6 +41,7 @@ protected:
     Timeline    t1;
     Timeline    t2;
     Timeline    t3;
+    Timeline    t4;
 };
 
 TEST_F(TimelineTest, insertWarpMarker) {
@@ -68,17 +70,3 @@ TEST_F(TimelineTest, getBeatFromTime) {
     EXPECT_DOUBLE_EQ(t3.getBeatFromTime(29), 101);
     EXPECT_TRUE(std::isinf(t3.getBeatFromTime(std::numeric_limits<double>::max())));
 }
-
-// private member tests
-
-/*TEST_F(TimelineTest, calculateRelationship) {
-
-}
-
-TEST_F(TimelineTest, calculateTimeByTempo) {
-
-}
-
-TEST_F(TimelineTest, calculateBeatByTempo) {
-    EXPECT_DOUBLE_EQ(t1.calculateBeatByTempo(6.0, {1.0, 5.0}), 11.0);
-}*/
