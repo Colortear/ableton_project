@@ -8,7 +8,8 @@ namespace command {
 InsertWarpMarker::InsertWarpMarker(ITimeline& timeline) :
     _timeline(timeline),
     _beat(0.0),
-    _timestamp(0.0)
+    _timestamp(0.0),
+    _argCount(2)
 {}
 
 int InsertWarpMarker::invoke()
@@ -23,9 +24,12 @@ void    InsertWarpMarker::assignInput(const commandList& args)
     _timestamp = std::stof(args[1]);
 }
 
+size_t  InsertWarpMarker::acceptedArgCount() const { return _argCount; }
+
 DefineEndTempo::DefineEndTempo(ITimeline& timeline) :
     _timeline(timeline),
-    _tempo(0.0)
+    _tempo(0.0),
+    _argCount(1)
 {}
 
 int DefineEndTempo::invoke()
@@ -39,9 +43,12 @@ void    DefineEndTempo::assignInput(const commandList& args)
     _tempo = std::stof(args[0]);
 }
 
+size_t  DefineEndTempo::acceptedArgCount() const { return _argCount; }
+
 ConvertTimeToBeat::ConvertTimeToBeat(ITimeline& timeline) :
     _timeline(timeline),
-    _time(0.0)
+    _time(0.0),
+    _argCount(1)
 {}
 
 int ConvertTimeToBeat::invoke()
@@ -55,9 +62,12 @@ void    ConvertTimeToBeat::assignInput(const commandList& args)
     _time = std::stod(args[0]);
 }
 
+size_t  ConvertTimeToBeat::acceptedArgCount() const { return _argCount; }
+
 ConvertBeatToTime::ConvertBeatToTime(ITimeline& timeline) :
     _timeline(timeline),
-    _beat(0.0)
+    _beat(0.0),
+    _argCount(1)
 {}
 
 int ConvertBeatToTime::invoke()
@@ -71,4 +81,6 @@ void    ConvertBeatToTime::assignInput(const commandList& args)
     _beat = std::stod(args[0]);
 }
 
+size_t  ConvertBeatToTime::acceptedArgCount() const { return _argCount; }
+    
 }

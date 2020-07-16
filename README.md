@@ -13,6 +13,7 @@ and macOS.
 # build
 
 Run `make` in the root directory.
+`gcc` is provided the O1 flag.
 
 # build test
 

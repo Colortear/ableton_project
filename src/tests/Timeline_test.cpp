@@ -47,24 +47,32 @@ TEST_F(TimelineTest, insertWarpMarker) {
     t1.insertWarpMarker(0, 200);
     t1.insertWarpMarker(0, 0);
     t1.insertWarpMarker(1, 5);
-    EXPECT_EQ(t1.getBeatFromTime(6), 11);
+    EXPECT_DOUBLE_EQ(t1.getBeatFromTime(6), 11);
 }
 
 TEST_F(TimelineTest, getTimeFromBeat) {
-    EXPECT_EQ(t3.getTimeFromBeat(12.5), 8.5);
-    EXPECT_EQ(t3.getTimeFromBeat(17), 17);
-    EXPECT_EQ(t3.getTimeFromBeat(0.5), 3.75);
+    EXPECT_DOUBLE_EQ(t3.getTimeFromBeat(12.5), 8.5);
+    EXPECT_DOUBLE_EQ(t3.getTimeFromBeat(17), 17);
+    EXPECT_DOUBLE_EQ(t3.getTimeFromBeat(0.5), 3.75);
+    EXPECT_DOUBLE_EQ(t3.getTimeFromBeat(101), 29);
+    EXPECT_DOUBLE_EQ(t3.getTimeFromBeat(-12), -2.5);
 }
 
 TEST_F(TimelineTest, getBeatFromTime) {
-    EXPECT_EQ(t1.getBeatFromTime(2), 0.4);
-    EXPECT_EQ(t1.getBeatFromTime(6), 11);
-    EXPECT_EQ(t2.getBeatFromTime(2), 210);
+    EXPECT_DOUBLE_EQ(t1.getBeatFromTime(2), 0.4);
+    EXPECT_DOUBLE_EQ(t1.getBeatFromTime(6), 11);
+    EXPECT_DOUBLE_EQ(t2.getBeatFromTime(2), 210);
+    EXPECT_DOUBLE_EQ(t3.getBeatFromTime(8.5), 12.5);
+    EXPECT_DOUBLE_EQ(t3.getBeatFromTime(17), 17);
+    EXPECT_DOUBLE_EQ(t3.getBeatFromTime(3.75), 0.5);
+    EXPECT_DOUBLE_EQ(t3.getBeatFromTime(29), 101);
+    EXPECT_TRUE(std::isinf(t3.getBeatFromTime(std::numeric_limits<double>::max())));
 }
 
 // private member tests
 
 /*TEST_F(TimelineTest, calculateRelationship) {
+
 }
 
 TEST_F(TimelineTest, calculateTimeByTempo) {
@@ -72,5 +80,5 @@ TEST_F(TimelineTest, calculateTimeByTempo) {
 }
 
 TEST_F(TimelineTest, calculateBeatByTempo) {
-    EXPECT_EQ(t1.calculateBeatByTempo(6.0, {1.0, 5.0}), 11.0);
+    EXPECT_DOUBLE_EQ(t1.calculateBeatByTempo(6.0, {1.0, 5.0}), 11.0);
 }*/

@@ -20,6 +20,7 @@ public:
 
     virtual int     invoke() = 0;
     virtual void    assignInput(const commandList& args) = 0;
+    virtual size_t  acceptedArgCount() const = 0;
 };
 
 class InsertWarpMarker final : public Command {
@@ -28,10 +29,13 @@ public:
 
     int     invoke() override;
     void    assignInput(const commandList& args) override;
+    size_t  acceptedArgCount() const override;
+    
 private:
     timeline::ITimeline&    _timeline;
     double                  _beat;
     double                  _timestamp;
+    size_t                  _argCount;
 };
 
 class DefineEndTempo final : public Command {
@@ -40,9 +44,11 @@ public:
 
     int     invoke() override;
     void    assignInput(const commandList& args) override;
+    size_t  acceptedArgCount() const override;
 private:
     timeline::ITimeline&    _timeline;
     double                  _tempo;
+    size_t                  _argCount;
 };
 
 class ConvertTimeToBeat final : public Command {
@@ -51,9 +57,11 @@ public:
 
     int     invoke() override;
     void    assignInput(const commandList& args) override;
+    size_t  acceptedArgCount() const override;
 private:
     timeline::ITimeline&    _timeline;
     double                  _time;
+    size_t                  _argCount;
 };
 
 class ConvertBeatToTime final : public Command {
@@ -62,9 +70,11 @@ public:
 
     int     invoke() override;
     void    assignInput(const commandList& args) override;
+    size_t  acceptedArgCount() const override;
 private:
     timeline::ITimeline&    _timeline;
-    double      _beat;
+    double                  _beat;
+    size_t                  _argCount;
 };
 
 class CommandProcessor {

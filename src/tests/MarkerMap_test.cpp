@@ -28,8 +28,8 @@ TEST_F(MarkerMapTest, insertRelationship) {
         m1.insertRelationship(distr(gen), distr(gen));
     m1.insertRelationship(0, 200);
     m1.insertRelationship(200, 0);
-    EXPECT_EQ(m1.aSize(), 1lu);
-    EXPECT_EQ(m1.bSize(), 1lu);
+    EXPECT_DOUBLE_EQ(m1.aSize(), 1lu);
+    EXPECT_DOUBLE_EQ(m1.bSize(), 1lu);
 }
 
 // private member tests

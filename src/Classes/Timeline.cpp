@@ -28,7 +28,7 @@ double  Timeline::getNextRatioAbove(const pole& lower) const
         auto upper = _warpMarkerMap->upperBoundAboveMap(std::nextafter(above, above+1.0));
 
         if (!upper)
-            throw;
+            throw std::exception();
         return (upper->below - below) / (upper->above - above);
     }
     catch (std::exception& e) {
@@ -44,7 +44,7 @@ double  Timeline::getNextRatioBelow(const pole& lower) const
         auto upper = _warpMarkerMap->upperBoundBelowMap(std::nextafter(below, below+1.0));
 
         if (!upper)
-            throw ;
+            throw std::exception();
         return (upper->above - above) / (upper->below - below);
     }
     catch (std::exception& e) {
@@ -54,35 +54,30 @@ double  Timeline::getNextRatioBelow(const pole& lower) const
 
 double  Timeline::getTimeFromBeat(const double beatVal) const
 {
-    range   beat_r, time_r;
     auto    upperBound = _warpMarkerMap->upperBoundAboveMap(beatVal);
     auto    lowerBound = _warpMarkerMap->lowerBoundAboveMap(beatVal);
 
-    if (upperBound && lowerBound) {
-        beat_r = range {lowerBound->above, upperBound->above};
-        time_r = range {lowerBound->below, upperBound->below};
-        return calculateRelationship(beatVal, beat_r, time_r);
-    }
-    else if (!upperBound || (!lowerBound && _warpMarkerMap->aSize() == 1))
+    if (lowerBound && upperBound)
+        return calculateRelationship(beatVal,
+                {lowerBound->above, upperBound->above},
+                {lowerBound->below, upperBound->below});
+    else if (lowerBound && !upperBound)
         return calculateTimeByTempo(beatVal, *lowerBound);
-    else if (!lowerBound && upperBound) {
+    else if (!lowerBound && upperBound)
         return upperBound->below - (getNextRatioAbove(*upperBound) * (upperBound->above - beatVal));
-    }
     return beatVal;
 }
 
 double  Timeline::getBeatFromTime(const double timeVal) const
 {
-    range   beat_r, time_r;
     auto    upperBound = _warpMarkerMap->upperBoundBelowMap(timeVal);
     auto    lowerBound = _warpMarkerMap->lowerBoundBelowMap(timeVal);
 
-    if (upperBound && lowerBound) {
-        beat_r = range {lowerBound->above, upperBound->above};
-        time_r = range {lowerBound->below, upperBound->below};
-        return calculateRelationship(timeVal, time_r, beat_r);
-    }
-    else if (!upperBound || (!lowerBound && _warpMarkerMap->bSize() == 1))
+    if (lowerBound && upperBound)
+        return calculateRelationship(timeVal,
+                {lowerBound->below, upperBound->below},
+                {lowerBound->above, upperBound->above});
+    else if (lowerBound && !upperBound)
         return calculateBeatByTempo(timeVal, *lowerBound);
     else if (!lowerBound && upperBound)
         return upperBound->above - (getNextRatioBelow(*upperBound) * (upperBound->below - timeVal));
