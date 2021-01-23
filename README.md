@@ -1,8 +1,6 @@
 # ableton_project
 
-This is my solution to the third prompt which details a program for placing warp markers between
-a beat and timestamp timeline. This was written on Manjaro and should work on any Linux distro
-and macOS.
+This is a project which was completed for application as a software developer for Ableton. The compiled binary takes timestamps and markers as input and then can be queried for the interpolation of timestamps in relation ot the specified beat.
 
 # dependencies
 
