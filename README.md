@@ -1,6 +1,6 @@
 # ableton_project
 
-This is a project which was completed for application as a software developer for Ableton. The compiled binary takes timestamps and markers as input and then can be queried for the interpolation of timestamps in relation ot the specified beat.
+This is a project which was completed for Ableton's application process. The compiled binary takes timestamps and markers as input and then can be queried for the interpolation of timestamps in relation ot the specified beat.
 
 # dependencies
 
